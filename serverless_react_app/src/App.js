@@ -7,35 +7,41 @@ class App extends Component {
 
   state = { 
     isLoading: false,
-    invoices: [
-      {
-        "id": "100",
-        "Vendor": "Hankook",
-        "Amount": "£18,000",
-        "Invoice": "1123",
-        "Date": "21/08/2019"
-      },
-      {
-        "id": "200",
-        "Vendor": "Hankook",
-        "Amount": "£10,000",
-        "Invoice": "2507",
-        "Date": "25/04/2020"
-      },
-      {
-        "id": "300",
-        "Vendor": "Hankook",
-        "Amount": "£26,000",
-        "Invoice": "1245",
-        "Date": "13/12/2019"
-      }
-    ]
+    invoices: [],
+    //   {
+    //     "id": "100",
+    //     "Vendor": "Hankook",
+    //     "Amount": "£18,000",
+    //     "Invoice": "1123",
+    //     "Date": "21/08/2019"
+    //   },
+    //   {
+    //     "id": "200",
+    //     "Vendor": "Hankook",
+    //     "Amount": "£10,000",
+    //     "Invoice": "2507",
+    //     "Date": "25/04/2020"
+    //   },
+    //   {
+    //     "id": "300",
+    //     "Vendor": "Hankook",
+    //     "Amount": "£26,000",
+    //     "Invoice": "1245",
+    //     "Date": "13/12/2019"
+    //   }
+    // ]
   }
 
   remove(id){
     console.log(id);
     let updatedInvoices = [...this.state.invoices].filter (i => i.id !== id);
     this.setState({invoices: updatedInvoices});
+  }
+
+  async componentDidMount(){
+    const response = await fetch('https://psvh17x5bi.execute-api.us-east-2.amazonaws.com/Dev');
+    const body = await response.json();
+    this.setState({invoices: body, isLoading: false});
   }
 
   render() {
